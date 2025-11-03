@@ -25,8 +25,9 @@ ENV PATH=$LD_LIBRARY_PATH:$PATH
 # Instalar paquetes R
 RUN R -e "install.packages(c('shiny','readxl','dplyr','RODBC','DT','writexl'))"
 
-# Copiar la app
-COPY /app /app
+# Copiar todo el proyecto al contenedor
+COPY . /app
 WORKDIR /app
-# Ejecutar la app
+
+# Ejecutar la app Shiny
 CMD ["R", "-e", "shiny::runApp('/app', port=as.numeric(Sys.getenv('PORT')), host='0.0.0.0')"]
